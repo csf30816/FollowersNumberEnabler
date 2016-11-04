@@ -1,1 +1,96 @@
+// ==UserScript==
+// @name         Scratch followers number enabler
+// @version      1.0
+// @description  Followers number on user profiles
+// @author       @World_Languages on Scratch
+// @match        https://scratch.mit.edu/users/*
+// @exclude      https://scratch.mit.edu/users/*/*/
+// ==/UserScript==
+
+
+// Get script updates
+var xmlHttp = new XMLHttpRequest();
+xmlHttp.open( "GET", 'https://raw.githubusercontent.com/WorldLanguages/FollowersNumberEnabler/master/currentversion.md', false );
+xmlHttp.send( null );
+var request = xmlHttp.responseText;
+
+if (request != 0.1) {
+    var update = confirm('You need to update the followers number enabler to make it work. \n\nUpdate? It just takes 10 seconds');
+    if (update === true) {
+    window.location = "https://github.com/WorldLanguages/FollowersNumberEnabler/blob/master/How%20to%20update.md";
+    stopScript();}}
+//
+
+
+
+
+
+// Run
+window.onload = getFollowers();
+setTimeout(function () {
+    getFollowing();
+           }, 500);
+//
+
+
+
+
+function getFollowers() {
+
+// Get username
+var url = window.location.href;
+var user1 = url.substring(30,60);
+var user = user1.replace('/', '');
+var user = user.replace('#comments-', '');
+var user = user.replace(/[0-9]/g, '');
+console.log("World_Languages' followers number shower:  username is" + user);
+//
+
+// Get followers amount
+var xmlHttp = new XMLHttpRequest();
+xmlHttp.open( "GET", 'https://scratch.mit.edu/users/' + user + '/followers/', false );
+xmlHttp.send( null );
+var response  = xmlHttp.responseText;
+var find = response.search("Followers");
+var find2 = (response.substring(find+11,find+17));
+var follownum = find2.replace(/\D/g,'');
+//
+
+// Show followers amount
+var a = '<h4>Followers (' + follownum + ')</h4> <a href="/users/' + user + '/followers/" data-control="viewall">View all</a>';
+var b = document.getElementsByClassName("box-head");
+b[6].innerHTML = a;}
+//
+
+
+
+
+
+
+function getFollowing() {
+
+// Get username
+var url = window.location.href;
+var user1 = url.substring(30,60);
+var user = user1.replace('/', '');
+var user = user.replace('#comments-', '');
+var user = user.replace(/[0-9]/g, '');
+console.log("World_Languages' followers number shower:  username is" + user);
+//
+
+// Get following amount
+var xmlHttp = new XMLHttpRequest();
+xmlHttp.open( "GET", 'https://scratch.mit.edu/users/' + user + '/following/', false );
+xmlHttp.send( null );
+var response  = xmlHttp.responseText;
+var find = response.search("Following");
+var find2 = (response.substring(find+11,find+17));
+var follownum = find2.replace(/\D/g,'');
+//
+
+// Show following amount
+var a = '<h4>Following (' + follownum + ')</h4> <a href="/users/' + user + '/following/" data-control="viewall">View all</a>';
+var b = document.getElementsByClassName("box-head");
+b[5].innerHTML = a;}
+//
 
