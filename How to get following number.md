@@ -1,3 +1,5 @@
+If you need help to do this, check this video tutorial: https://youtu.be/LLT4ioAIfYY?t=1m3s
+
 #To get the number of "following":
 
 1) Go to any Scratch page <br>
