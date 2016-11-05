@@ -26,13 +26,13 @@ if (request != 1.0) {
 
 
 
-
 // Run
 window.onload = function() {
 var following = readCookie('followingshow');
     if (following == 1) {
     getFollowing();}
-getFollowers();};
+getFollowers();
+console.log('Loading...');};
 
 //
 
@@ -41,13 +41,11 @@ getFollowers();};
 
 
 
-// Get user
+
 var url = window.location.href;
 var user1 = url.substring(30,100);
 var user = user1.substring(0, user1.indexOf('/'));
-//
 
-// Get correct div element
 var divtofind = 6;
 
 var html = document.documentElement.innerHTML;
@@ -59,7 +57,11 @@ var html2 = document.documentElement.innerHTML;
 html2 = html2.search("Studios I Curate");
 if (html2 == -1) {
     divtofind = divtofind-1;}
-//
+
+
+
+
+
 
 
 
@@ -76,6 +78,7 @@ xmlHttp.send( null );
 var response  = xmlHttp.responseText;
 var find = response.search("Followers");
 var find2 = (response.substring(find+10,find+17));
+console.log(find2);
 var follownum = find2.replace(/\D/g,'');
 //
 
@@ -110,6 +113,65 @@ var follownum = find2.replace(/\D/g,'');
     setTimeout(function () {
 var a = '<h4>Following (' + follownum + ')</h4> <a href="/users/' + user + '/following/" data-control="viewall">View all</a>';
 var b = document.getElementsByClassName("box-head");
+console.log(b);
 b[divtofind-1].innerHTML = a;
     }, 500);}
 //
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Cookies functions
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+
+function createCookie(name,value,days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	}
+	else var expires = "";
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function eraseCookie(name) {
+	createCookie(name,"",-1);
+}
