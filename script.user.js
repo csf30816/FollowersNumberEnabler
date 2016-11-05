@@ -15,20 +15,25 @@ xmlHttp.send( null );
 var request = xmlHttp.responseText;
 
 if (request != 1.0) {
-    var update = confirm('You need to update the followers number enabler to make it work. \n\nUpdate? It just takes 10 seconds');
+    var update = confirm('You NEED to update the followers number enabler to make it work. \n\nUpdate? It just takes 10 seconds');
     if (update === true) {
-    window.location = "https://github.com/WorldLanguages/FollowersNumberEnabler/blob/master/How%20to%20update.md";}}
+    window.location = "https://github.com/WorldLanguages/FollowersNumberEnabler/blob/master/How%20to%20update.md";}
+    if (update === false) {
+    stop();}}
 //
+
 
 
 
 
 
 // Run
-window.onload = getFollowers();
-setTimeout(function () {
-    getFollowing();
-           }, 500);
+window.onload = function() {
+var following = readCookie('followingshow');
+    if (following == 1) {
+    getFollowing();}
+getFollowers();};
+
 //
 
 
@@ -36,10 +41,25 @@ setTimeout(function () {
 
 
 
+// Get user
+var url = window.location.href;
+var user1 = url.substring(30,100);
+var user = user1.substring(0, user1.indexOf('/'));
+//
 
+// Get correct div element
+var divtofind = 6;
 
+var html = document.documentElement.innerHTML;
+html = html.search("Studios I'm Following");
+if (html == -1) {
+    divtofind = divtofind-1;}
 
-
+var html2 = document.documentElement.innerHTML;
+html2 = html2.search("Studios I Curate");
+if (html2 == -1) {
+    divtofind = divtofind-1;}
+//
 
 
 
@@ -48,12 +68,6 @@ setTimeout(function () {
 
 function getFollowers() {
 
-// Get username
-var url = window.location.href;
-var user1 = url.substring(30,100);
-var user = user1.substring(0, user1.indexOf('/'));
-var user = String(user);
-//
 
 // Get followers amount
 var xmlHttp = new XMLHttpRequest();
@@ -61,14 +75,17 @@ xmlHttp.open( "GET", 'https://scratch.mit.edu/users/' + user + '/followers/', fa
 xmlHttp.send( null );
 var response  = xmlHttp.responseText;
 var find = response.search("Followers");
-var find2 = (response.substring(find+11,find+17));
+var find2 = (response.substring(find+10,find+17));
 var follownum = find2.replace(/\D/g,'');
 //
 
 // Show followers amount
+    setTimeout(function () {
 var a = '<h4>Followers (' + follownum + ')</h4> <a href="/users/' + user + '/followers/" data-control="viewall">View all</a>';
 var b = document.getElementsByClassName("box-head");
-b[6].innerHTML = a;}
+b[divtofind].innerHTML = a;
+    }, 500);}
+
 //
 
 
@@ -78,11 +95,6 @@ b[6].innerHTML = a;}
 
 function getFollowing() {
 
-// Get username
-var url = window.location.href;
-var user1 = url.substring(30,100);
-var user = user1.substring(0, user1.indexOf('/'));
-//
 
 // Get following amount
 var xmlHttp = new XMLHttpRequest();
@@ -95,8 +107,9 @@ var follownum = find2.replace(/\D/g,'');
 //
 
 // Show following amount
+    setTimeout(function () {
 var a = '<h4>Following (' + follownum + ')</h4> <a href="/users/' + user + '/following/" data-control="viewall">View all</a>';
 var b = document.getElementsByClassName("box-head");
-b[5].innerHTML = a;}
+b[divtofind-1].innerHTML = a;
+    }, 500);}
 //
-
