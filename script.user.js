@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Scratch followers number enabler
-// @version      1.1
+// @version      1.0
 // @description  Followers number on user profiles
 // @author       @World_Languages on Scratch
 // @match        https://scratch.mit.edu/users/*
@@ -14,11 +14,10 @@ xmlHttp.open( "GET", 'https://raw.githubusercontent.com/WorldLanguages/Followers
 xmlHttp.send( null );
 var request = xmlHttp.responseText;
 
-if (request != 1.1) {
+if (request != 1.0) {
     var update = confirm('You need to update the followers number enabler to make it work. \n\nUpdate? It just takes 10 seconds');
     if (update === true) {
-    window.location = "https://github.com/WorldLanguages/FollowersNumberEnabler/blob/master/How%20to%20update.md";
-    stopScript();}}
+    window.location = "https://github.com/WorldLanguages/FollowersNumberEnabler/blob/master/How%20to%20update.md";}}
 //
 
 
@@ -52,8 +51,8 @@ function getFollowers() {
 // Get username
 var url = window.location.href;
 var user1 = url.substring(30,100);
-console.log('a' + user1);
 var user = user1.substring(0, user1.indexOf('/'));
+var user = String(user);
 //
 
 // Get followers amount
