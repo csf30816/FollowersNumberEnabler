@@ -32,7 +32,6 @@ var following = readCookie('followingshow');
     if (following == 1) {
     getFollowing();}
 getFollowers();
-console.log('Loading...');};
 
 //
 
@@ -78,7 +77,6 @@ xmlHttp.send( null );
 var response  = xmlHttp.responseText;
 var find = response.search("Followers");
 var find2 = (response.substring(find+10,find+17));
-console.log(find2);
 var follownum = find2.replace(/\D/g,'');
 //
 
@@ -113,7 +111,6 @@ var follownum = find2.replace(/\D/g,'');
     setTimeout(function () {
 var a = '<h4>Following (' + follownum + ')</h4> <a href="/users/' + user + '/following/" data-control="viewall">View all</a>';
 var b = document.getElementsByClassName("box-head");
-console.log(b);
 b[divtofind-1].innerHTML = a;
     }, 500);}
 //
